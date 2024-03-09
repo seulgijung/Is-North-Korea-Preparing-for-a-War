@@ -1,53 +1,83 @@
-<style>
-        body {
-            margin:0;
-            padding:0;
+        .body {
+            margin: 0;
+            padding: 0;
             font-family: sans-serif;
         }
-        a, a:hover, a:visited {
+
+        .a,
+        a:hover,
+        a:visited {
             color: #0071bc;
         }
+
         #map {
-            display: none; /* Hide the map initially */
-            height: 50%;
-            width: 50%;
+            visibility: hidden;
+            height: 50vh;
+            width: 50vw;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            border: 1px black;
             position: fixed;
         }
+
+        .mapboxgl-canvas {
+            left: 0;
+          }
+
         #mapInset {
-            bottom:50px;
-            right:30px;
-            height:180px;
-            width:250px;
-            max-width:100%;
+            bottom: 50px;
+            right: 30px;
+            height: 180px;
+            width: 250px;
+            max-width: 100%;
             position: fixed;
             z-index: 1;
             opacity: 1;
             transition: opacity 0.5s ease-in-out;
             pointer-events: none;
         }
-        #mapInset .mapboxgl-ctrl-bottom-left{
+
+        #mapInset .mapboxgl-ctrl-bottom-left {
             display: none;
         }
+
         @media (max-width: 500px) {
             #mapInset {
                 display: none;
             }
         }
+
         #header {
-            margin: auto;;
+            margin: auto;
             width: 100%;
             position: relative;
             z-index: 5;
         }
-        #header h1, #header h2, #header p {
+
+        #header h1 {
+            margin: 0;
+            /* padding: 10vh 2vw; */
+            padding: 100px 2px 2px 2px;
+            font-family: 'Roboto Serif', serif;
+            text-align: center;
+            font-size: 45px;
+        }
+
+        #header h2 {
+            font-family: 'Roboto Serif', serif;
             margin: 0;
             padding: 2vh 2vw;
             text-align: center;
         }
+
+        #header p {
+            margin: 0;
+            padding: 5vh 2vw;
+            text-align: center;
+            font-family: 'Roboto Serif', serif;
+            font-size: 20px;
+        }
+
         #footer {
             width: 100%;
             min-height: 5vh;
@@ -59,50 +89,63 @@
             position: relative;
             z-index: 5;
         }
+
         #features {
             padding-top: 10vh;
             padding-bottom: 10vh;
         }
+
         .hidden {
             visibility: hidden;
         }
+
         .centered {
             width: 50vw;
             margin: 0 auto;
         }
+
         .lefty {
             width: 33vw;
             margin-left: 5vw;
         }
+
         .righty {
             width: 33vw;
             margin-left: 62vw;
         }
+
         .fully {
             width: 100%;
             margin: auto;
         }
+
         .light {
             color: #444;
             background-color: #fafafa;
         }
+
         .dark {
             color: #fafafa;
             background-color: #444;
         }
+
         .step {
             padding-bottom: 50vh;
             /* margin-bottom: 10vh; */
             opacity: 0.25;
+            font-family: 'Roboto Serif', serif;                                        `
         }
+
         .step.active {
             opacity: 0.9;
         }
 
         .step div {
-            padding:  25px 50px;
+            padding: 25px 50px;
             line-height: 25px;
-            font-size: 13px;
+            font-size: 20px;
+            line-height: 30px;
+            background-color: #ffffff;
         }
 
         .step img {
@@ -112,14 +155,34 @@
         #intro {
             max-width: 650px;
             margin: 0 auto 20px auto;
-	        padding-left: 20px;
-	        padding-right: 20px;
+            padding-left: 20px;
+            padding-right: 20px;
             padding-bottom: 20px;
+            font-family: 'Roboto Serif', serif;
+            font-size: 20px;
+            line-height: 34px;
+            z-index: 2; /* Ensure the story content is above the map */
         }
         
+        #intro p {
+            padding: 1vh;
+        }
+
+        #outro {
+            max-width: 650px;
+            margin: 0 auto 200px auto;
+            font-family: 'Roboto Serif', serif;
+            font-size: 20px;
+            line-height: 34px;
+        }
+
 
         @media (max-width: 750px) {
-            .centered, .lefty, .righty, .fully {
+
+            .centered,
+            .lefty,
+            .righty,
+            .fully {
                 width: 90vw;
                 margin: 0 auto;
             }
@@ -130,4 +193,3 @@
         .mapboxgl-canvas-container.mapboxgl-touch-zoom-rotate.mapboxgl-touch-drag-pan .mapboxgl-canvas {
             touch-action: unset;
         }
-</style>

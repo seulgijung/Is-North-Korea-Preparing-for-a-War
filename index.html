@@ -9,6 +9,12 @@
     <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v2.11.0/mapbox-gl.css' rel='stylesheet' />
     <script src="https://unpkg.com/intersection-observer@0.12.0/intersection-observer.js"></script>
     <script src="https://unpkg.com/scrollama"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cabin+Sketch:wght@400;700&family=Cabin:ital,wght@0,400..700;1,400..700&family=Roboto+Serif:ital,opsz,wght@0,8..144,100..900;1,8..144,100..900&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cabin+Sketch:wght@400;700&family=Cabin:ital,wght@0,400..700;1,400..700&family=PT+Serif:ital,wght@0,400;0,700;1,400;1,700&family=Roboto+Serif:ital,opsz,wght@0,8..144,100..900;1,8..144,100..900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css" />
 </head>
 <body>
@@ -53,26 +59,6 @@ function setLayerOpacity(layer) {
         map.setPaintProperty(layer.layer, prop, layer.opacity, options);
     });
 }
-
-
-// 풀사이즈맵
-// Wait for the DOM content to be fully loaded
-document.addEventListener('DOMContentLoaded', function() {
-    // Get the map container element
-    var mapContainer = document.getElementById('map');
-
-    // Get the canvas element within the map container
-    var canvas = mapContainer.querySelector('.mapboxgl-canvas');
-
-    // Get the computed style of the map container to obtain its width and height
-    var containerStyle = window.getComputedStyle(mapContainer);
-    var containerWidth = containerStyle.getPropertyValue('width');
-    var containerHeight = containerStyle.getPropertyValue('height');
-
-    // Set the canvas width and height to match the container's width and height
-    canvas.style.width = containerWidth;
-    canvas.style.height = containerHeight;
-});
 
 
 
@@ -138,11 +124,16 @@ config.outroParagraphs.forEach(paragraph => {
     outroDiv.appendChild(outroPara);
 });
 
-// 2-3 Append the introDiv before the features div (where chapters are appended)
+// 2-3 Append the outroDiv before the features div (where chapters are appended)
 document.getElementById('story').appendChild(outroDiv);
 
 // 2-4 Create and append the outro div after the map element
 document.body.appendChild(outroDiv);
+
+
+
+
+
 
 
 
@@ -189,19 +180,19 @@ story.appendChild(features);
 
 
 
-var footer = document.createElement('div');
+// var footer = document.createElement('div');
 
-if (config.footer) {
-    var footerText = document.createElement('p');
-    footerText.innerHTML = config.footer;
-    footer.appendChild(footerText);
-}
+// if (config.footer) {
+//     var footerText = document.createElement('p');
+//     footerText.innerHTML = config.footer;
+//     footer.appendChild(footerText);
+// }
 
-if (footer.innerText.length > 0) {
-    footer.classList.add(config.theme);
-    footer.setAttribute('id', 'footer');
-    story.appendChild(footer);
-}
+// if (footer.innerText.length > 0) {
+//     footer.classList.add(config.theme);
+//     footer.setAttribute('id', 'footer');
+//     story.appendChild(footer);
+// }
 
 mapboxgl.accessToken = config.accessToken;
 
@@ -278,6 +269,7 @@ map.on("load", function() {
     if (config.inset) {
     map.on('move', getInsetBounds);
     }
+    
     // setup the instance, pass callback functions
     scroller
     .setup({
@@ -287,7 +279,10 @@ map.on("load", function() {
     })
     .onStepEnter(async response => {
         // Show the map when Scrollama starts
-        document.getElementById('map').style.display = 'block';
+        document.getElementById('map').style.visibility = 'visible';
+        var current_chapter = config.chapters.findIndex(chap => chap.id === response.element.id);
+        var chapter = config.chapters[current_chapter];
+
         var current_chapter = config.chapters.findIndex(chap => chap.id === response.element.id);
         var chapter = config.chapters[current_chapter];
         
@@ -332,30 +327,33 @@ map.on("load", function() {
         }
     })
     .onStepExit(response => {
-        var chapter = config.chapters.find(chap => chap.id === response.element.id);
-        response.element.classList.remove('active');
-        if (chapter.onChapterExit.length > 0) {
-            chapter.onChapterExit.forEach(setLayerOpacity);
-        }
+    var chapter = config.chapters.find(chap => chap.id === response.element.id);
+    response.element.classList.remove('active');
+    if (chapter.onChapterExit.length > 0) {
+        chapter.onChapterExit.forEach(setLayerOpacity);
+    }
 
-        // Check if the user is scrolling up
-        const direction = response.direction; // 'up' or 'down'
+    // Check if the user is scrolling up
+    const direction = response.direction; // 'up' or 'down'
 
-        // Check if the user is at the initial position of Scrollama steps
-        const isAtInitialStep = response.index === 0 && direction === 'up';
+    // Check if the user is at the initial position of Scrollama steps
+    const isAtInitialStep = response.index === 0 && direction === 'up';
 
-        // If the user is scrolling up to the initial step, hide the map
-        if (isAtInitialStep) {
-        document.getElementById('map').style.display = 'none';
-        }
+    // If the user is scrolling up to the initial step, hide the map
+    if (isAtInitialStep) {
+        document.getElementById('map').style.visibility = 'hidden';
+    }
 
-        // For other cases, you might want to keep the map visible
-    });
-
+    // Check if this is the last step and it's scrolling down
+    const isAtLastStep = response.index === (config.chapters.length - 1) && direction === 'down';
+    if (isAtLastStep) {
+        document.getElementById('map').style.visibility = 'hidden';
+    }
+});
 
     if (config.auto) {
         document.querySelectorAll('[data-scrollama-index="0"]')[0].scrollIntoView();
-    }
+    };
 });
 
 
