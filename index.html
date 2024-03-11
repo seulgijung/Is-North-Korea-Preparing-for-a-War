@@ -211,27 +211,27 @@ var map = new mapboxgl.Map({
     zoom: config.chapters[0].location.zoom,
     bearing: config.chapters[0].location.bearing,
     pitch: config.chapters[0].location.pitch,
-    interactive: false,
+    interactive: true,
     transformRequest: transformRequest,
     projection: config.projection
 });
 
-// // Create a inset map if enabled in config.js
-// if (config.inset) {
-//  var insetMap = new mapboxgl.Map({
-//     container: 'mapInset', // container id
-//     style: 'mapbox://styles/mapbox/dark-v10', //hosted style id
-//     center: config.chapters[0].location.center,
-//     // Hardcode above center value if you want insetMap to be static.
-//     zoom: 3, // starting zoom
-//     hash: false,
-//     interactive: false,
-//     attributionControl: false,
-//     //Future: Once official mapbox-gl-js has globe view enabled,
-//     //insetmap can be a globe with the following parameter.
-//     //projection: 'globe'
-//   });
-// }
+// Create a inset map if enabled in config.js
+if (config.inset) {
+ var insetMap = new mapboxgl.Map({
+    container: 'mapInset', // container id
+    style: 'mapbox://styles/mapbox/dark-v10', //hosted style id
+    center: config.chapters[0].location.center,
+    // Hardcode above center value if you want insetMap to be static.
+    zoom: 3, // starting zoom
+    hash: false,
+    interactive: false,
+    attributionControl: false,
+    //Future: Once official mapbox-gl-js has globe view enabled,
+    //insetmap can be a globe with the following parameter.
+    //projection: 'globe'
+  });
+}
 
 if (config.showMarkers) {
     var marker = new mapboxgl.Marker({ color: config.markerColor });
@@ -351,7 +351,7 @@ map.on("load", function() {
     }
 
     // // Check if the last step contains the specific image
-    // const lastStepContainsImage = document.querySelector('#step-four img[src="./images/ryonpho_original.gif"]') !== null;
+    // const lastStepContainsImage = document.querySelector('data-scrollama-index') === 3 && direction === 'down';
 
     // // If both conditions are met, hide the map
     // if (lastStepContainsImage) {
