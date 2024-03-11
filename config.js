@@ -20,16 +20,15 @@ var config = {
         "On January 16, Pyongyang announced plans to abolish a decades-long formal agreement on peaceful reunification with the South. In a cabinet meeting of the Supreme People's Assembly, Kim Jong-un called for a constitutional amendment to define South Korea as the North’s number one enemy and to specify annexation of South Korea in case of war.",
         "Is North Korea preparing for such a war?",
         "Some experts say yes. According to two veteran analysts of North Korea,e former State Department official Robert L. Carlin and nuclear scientist Siegfried S. Hecker, Mr. Kim’s provocations are no mere threats. “Kim Jong-un has made a strategic decision to go to war,” they say.",
-        "So far, U.S. agencies are taking a more measured view. The New York Times, citing interviews with anonymous American officials, reports that no concrete signs have been detected that the DPRK is gearing up for combat or a major war. One official cited by the Times said North Korea would not be making large arms shipments to Russia,, including new sets of artillery rounds and missiles, if it were planning a prolonged conflict.",
     ],
     chapters: [
         {
             id: 'step-one',
             alignment: 'left',
             hidden: false,
-            title: 'But here is an evidence',
-            image: './path/to/image/source.png',
-            description: 'So far, U.S. agencies are taking a more measured view. The New York Times, citing interviews with anonymous American officials, reports that no concrete signs have been detected that the DPRK is gearing up for combat or a major war. One official cited by the Times said North Korea would not be making large arms shipments to Russia, including new sets of artillery rounds and missiles, if it were planning a prolonged conflict.',
+            // title: 'But here is an evidence',
+            // image: './images/najin.avif',
+            description: "So far, U.S. agencies are taking a more measured view. The New York Times, citing interviews with anonymous American officials, reports that no concrete signs have been detected that the DPRK is gearing up for combat or a major war. One official cited by the Times said North Korea would not be making large arms shipments to Russia, including new sets of artillery rounds and missiles, if it were planning a prolonged conflict.",
             location: {
                 center: [125.6, 39.7],
                 zoom: 6,
@@ -57,8 +56,8 @@ var config = {
             id: 'step-two',
             alignment: 'left',
             hidden: false,
-            title: 'Najin Turn On',
-            image: './path/to/image/source.png',
+            // title: 'Najin Turn On',
+            image: './images/najin.avif',
             description: "Despite denials from both Russia and North Korea, an unpublished UK report submitted to the UN offers photographic evidence of the arms packages leaving the North. Aerial photos show Russian ships loading containers at North Korea's Najin Port, a claim confirmed by the US government. Such arms shipments to Russia violate international sanctions.",
             location: {
                 center: [130.10, 42.24],
@@ -93,8 +92,8 @@ var config = {
             id: 'step-three',
             alignment: 'left',
             hidden: false,
-            title: 'Ryonpho Turn On',
-            image: './path/to/image/source.png',
+            // title: 'Ryonpho Turn On',
+            image: './images/ryonpho_mar2021.png',
             description: 'Those aren’t the only aerial photographs to suggest the North might not be pursuing war. Suh Jae-jung, a professor in the Department of Politics and International Studies at International Christian University, says that the North has transformed  an air base in Ryopho into a greenhouse site. “A leader planning for a major military operation would not have chosen such transition,” he added. “The North’s hostile gesture may come out of escalating tension and we should be wary of blowing it out of proportion.',
             location: {
                 center: [127.09, 39.81],
@@ -119,6 +118,36 @@ var config = {
                 }
             ]
         },
+        {
+            id: 'step-four',
+            alignment: 'centered',
+            hidden: false,
+            // title: 'Ryonpho Turn On',
+            image: './images/ryonpho_original.gif',
+            // description: '',
+            location: {
+                center: [127.09, 39.81],
+                zoom: 8,
+                pitch: 0,
+                bearing: 0.00
+            },
+            mapAnimation: 'flyTo',
+            rotateAnimation: false,
+            callback: '',
+            onChapterEnter: [
+                {
+                    layer: 'ryonpho',
+                    opacity: 1,
+                    duration: 3000
+                }
+            ],
+            onChapterExit: [
+                {
+                    layer: 'ryonpho',
+                    opacity: 0
+                }
+            ]
+        }
     ],
     outroParagraphs: [
         "So perhaps full-scale war is not imminent. Surely, Pyongyang’s recent hardline posturing  is consistent  with a long held pattern of provocations. Still, South Korea is well advised to remain alert and even expect minor skirmishes ahead, possibly in the Demilitarized Zone or the buffer zone in the West sea. U.S. officials warn that Mr. Kim could conduct some form of lethal military action against South Korea in the coming months after shifting to a policy of open hostility, and it would be more dreadful than the 2010 shelling against Yeonpyeong Island, which left four dead and scores more people injured.",
